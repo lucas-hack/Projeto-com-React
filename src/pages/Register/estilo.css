@@ -7,10 +7,17 @@
 .container {
     background-color: rgb(49, 54, 59);
     width: 960px;
-    height: 100vh;
+    height: 1080px;
 }
 
 .titulo {
+    position: absolute;
+    width: 273px;
+    height: 75px;
+    left: 296px;
+    top: 94px;
+
+    color: #E0E0E0;
     font-family: Mulish;
     font-size: 60px;
     font-weight: 400;
@@ -20,6 +27,13 @@
 }
 
 .subTitulo {
+    position: absolute;
+    width: 301px;
+    height: 24px;
+    left: 298px;
+    top: 175px;
+
+    color: #E0E0E0;
     font-family: Mulish;
     font-size: 16px;
     font-weight: 400;
@@ -31,17 +45,23 @@
 .form {
     display: flex;
     flex-direction: column;
+
+    position: absolute;
+    width: 471px;
+    height: 60px;
+    left: 296px;
+    top: 266px;
 }
 
 .inputGroup {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 18px;
 }
 
 .inputGroup span {
-    margin-right: 10px;
+    margin-right: 19px;
     color: #E0E0E0;
     font-family: Mulish;
     font-size: 16px;
@@ -49,20 +69,46 @@
     line-height: 20px;
     letter-spacing: 0em;
     text-align: left;
+    white-space: nowrap;
 
 }
 
 .inputGroup input {
     background-color: transparent;
     border: 1px solid #FFFFFF;
-    color: #E0E0E0;
+    /* color: #E0E0E0; */
+    color: red;
     height: 60px;
     width: 379px;
-    left: 388px;
-    top: 266px;
     border-radius: 50px;
 }
 
-button {
-    margin-top: 10px;
+.botao {
+    position: absolute;
+    height: 67px;
+    width: 471px;
+    left: 298px;
+    top: 928px;
+    border-radius: 50px;
+    border: none;
+    background-color: blue;
+
+
+    font-family: Mulish;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 40px;
+    letter-spacing: 0em;
+    text-align: center;
+
+    color: #FFFFFF;
+
+}
+
+.imagem {
+    position: absolute;
+    width: 960px;
+    height: 1080px;
+    left: 960px;
+    top: 0px;
 }

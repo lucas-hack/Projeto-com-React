@@ -1,9 +1,10 @@
 import "./estilo.css";
+import Laptop from "../../images/computador_login.png"
 
 function Register() {
   return (
-    <div className="container">
-      <div>
+    <div>
+      <div className="container">
         <h1 className="titulo">Welcome,</h1>
         <h2 className="subTitulo">Please, register to continue</h2>
 
@@ -48,11 +49,15 @@ function Register() {
             <input type="text" placeholder="Comfirm your password" />
           </div>
 
-          <button>Register Now</button>
         </form>
+
+        <button className="botao">Register Now</button>
+        
       </div>
 
-      <div className="foto"></div>
+      <div className="imagem">
+        <img src={Laptop} alt="" />
+      </div>
     </div>
   );
 }
