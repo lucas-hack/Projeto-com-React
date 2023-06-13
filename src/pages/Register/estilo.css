@@ -91,7 +91,8 @@
     top: 928px;
     border-radius: 50px;
     border: none;
-    background-color: blue;
+    background-color: red;
+    box-shadow: 5px 5px 15px 0px #00000080;
 
 
     font-family: Mulish;
@@ -103,6 +104,20 @@
 
     color: #FFFFFF;
 
+    transition: 0.5s;
+}
+
+.botao:hover {
+    transform: scale(1.1);
+}
+
+.logo {
+    position: absolute;
+    width: 484px;
+    height: 66px;
+    left: 1198px;
+    top: 36px;
+    z-index: 100;
 }
 
 .imagem {
