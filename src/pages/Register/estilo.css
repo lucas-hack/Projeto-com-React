@@ -85,22 +85,23 @@
 
 .botao {
     position: absolute;
-    height: 67px;
     width: 471px;
-    left: 298px;
-    top: 928px;
-    border-radius: 50px;
+    height: 67px;
+    left: 0px;
+    top: 658px;
     border: none;
+    border-radius: 50px;
+
+
     background-color: red;
     box-shadow: 5px 5px 15px 0px #00000080;
 
 
-    font-family: Mulish;
-    font-size: 32px;
+    font-family: 'Mulish';
+    font-style: normal;
     font-weight: 700;
+    font-size: 32px;
     line-height: 40px;
-    letter-spacing: 0em;
-    text-align: center;
 
     color: #FFFFFF;
 

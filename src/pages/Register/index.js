@@ -33,7 +33,7 @@ function Register() {
         <form onSubmit={handleSubmit} className="form">
           <div className="inputGroup">
             <span>first name</span>
-            <input type="text" placeholder="Your first name" value={firstName} onChange={(e) => setFirstName(e.targe.value)} />
+            <input type="text" placeholder="Your first name" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
           </div>
 
           <div className="inputGroup">
@@ -71,9 +71,8 @@ function Register() {
             <input type="text" placeholder="Comfirm your password" value={confirmPass} onChange={(e) => setConfirmPass(e.target.value)} />
           </div>
 
+          <button className="botao" type="submit">Register Now</button>
         </form>
-
-        <button className="botao" type="submit">Register Now</button>
 
       </div>
 
