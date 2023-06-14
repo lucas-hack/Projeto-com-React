@@ -1,5 +1,5 @@
 import { useState } from "react"
-import "./estilo.css";
+import "./registro.css";
 import Laptop from "../../images/computador_login.png"
 import Logo from "../../images/compass-logo.png"
 
@@ -27,10 +27,10 @@ function Register() {
   return (
     <div>
       <div className="container">
-        <h1 className="titulo">Welcome,</h1>
-        <h2 className="subTitulo">Please, register to continue</h2>
+        <h1 className="tituloRegister">Welcome,</h1>
+        <h2 className="subTituloRegister">Please, register to continue</h2>
 
-        <form onSubmit={handleSubmit} className="form">
+        <form onSubmit={handleSubmit} className="formRegister">
           <div className="inputGroup">
             <span>first name</span>
             <input type="text" placeholder="Your first name" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
@@ -71,7 +71,7 @@ function Register() {
             <input type="text" placeholder="Comfirm your password" value={confirmPass} onChange={(e) => setConfirmPass(e.target.value)} />
           </div>
 
-          <button className="botao" type="submit">Register Now</button>
+          <button className="botaoRegister" type="submit">Register Now</button>
         </form>
 
       </div>

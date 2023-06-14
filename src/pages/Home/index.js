@@ -1,5 +1,5 @@
 import { useState } from "react"
-import "./estilo.css";
+import "./home.css";
 import Laptop from "../../images/computador_login.png"
 import Logo from "../../images/compass-logo.png"
 import IconU from "../../images/icons/icon-user.svg"
