@@ -19,8 +19,17 @@ function Register() {
 
     if (firstName !== "" && lastName !== "" && birth !== "" && country !== "" && city !== "" && email !== "" && password !== "" && confirmPass !== "") {
       if (password === confirmPass) {
-        alert("Cadastro feito")
+        if (!/^(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])(?=.*\d)(?=.*[A-Z]).*$/.test(password)) {
+          alert("A senha deve conter pelo menos um caractere especial, um número e uma letra maiúscula.");
+        } else {
+          // Todas as validações passaram, você pode prosseguir com o cadastro
+          alert("Cadastro feito");
+        }
+      } else {
+        alert("As senhas não coincidem.");
       }
+    } else {
+      alert("Por favor, preencha todos os campos.");
     }
   }
 
