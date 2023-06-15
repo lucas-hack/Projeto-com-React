@@ -1,7 +1,9 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
 import "./registro.css";
 import Laptop from "../../images/computador_login.png"
 import Logo from "../../images/compass-logo.png"
+
+import { AuthContext } from "../../contexts/auth"
 
 function Register() {
 
@@ -13,6 +15,8 @@ function Register() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPass, setConfirmPass] = useState("")
+
+  const { newUser } = useContext(AuthContext)
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -46,7 +50,8 @@ function Register() {
         }
       } else {
         alert("As senhas não coincidem.");
-      } alert("cadastrado")
+      }
+      newUser(firstName,lastName,country,city,email,password)
     } else {
       alert("Você precisa preencher todos os campos.");
     }
