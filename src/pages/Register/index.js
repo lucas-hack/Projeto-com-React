@@ -35,23 +35,24 @@ function Register() {
       const cityFormat = city.charAt(0).toUpperCase() + city.slice(1);
       console.log(cityFormat);
 
+      const age = calculateAge(birth);
+
       if (password === confirmPass) {
         if (!/^(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])(?=.*\d)(?=.*[A-Z]).*$/.test(password)) {
           alert("A senha deve conter pelo menos um caractere especial, um número e uma letra maiúscula.");
-        } else {
-          const age = calculateAge(birth);
-          if (age < 18) {
-            alert("Você deve ter pelo menos 18 anos para se registrar.");
-          } else {
-            if (!isValidEmail(email)) {
-              alert("O e-mail digitado não é válido. Certifique-se de digitar um endereço de e-mail válido.");
-            }
-          }
         }
+      }
+
+      if (age < 18) {
+        alert("Você deve ter pelo menos 18 anos para se registrar.");
+      }
+      if (!isValidEmail(email)) {
+        alert("O e-mail digitado não é válido. Certifique-se de digitar um endereço de e-mail válido.");
+
       } else {
         alert("As senhas não coincidem.");
       }
-      newUser(firstNameFormat,lastNameFormat,countryFormat,cityFormat,email,password)
+      newUser(firstNameFormat, lastNameFormat, countryFormat, cityFormat, email, password)
     } else {
       alert("Você precisa preencher todos os campos.");
     }
