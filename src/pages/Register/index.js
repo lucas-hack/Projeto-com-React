@@ -51,7 +51,7 @@ function Register() {
       } else {
         alert("As senhas não coincidem.");
       }
-      newUser(firstName,lastName,country,city,email,password)
+      newUser(firstNameFormat,lastNameFormat,countryFormat,cityFormat,email,password)
     } else {
       alert("Você precisa preencher todos os campos.");
     }
