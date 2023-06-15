@@ -46,10 +46,11 @@ function Register() {
         }
       } else {
         alert("As senhas não coincidem.");
-      }
+      } alert("cadastrado")
     } else {
       alert("Você precisa preencher todos os campos.");
     }
+
   }
 
   function calculateAge(birthDate) {
