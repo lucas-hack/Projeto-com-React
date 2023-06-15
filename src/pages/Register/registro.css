@@ -2,12 +2,13 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+
 }
 
 .container {
     background-color: rgb(49, 54, 59);
-    width: 960px;
-    height: 1080px;
+    width: 1980px;
+    height: 100vh;
 }
 
 .tituloRegister {
@@ -132,4 +133,8 @@
     height: 1080px;
     left: 960px;
     top: 0px;
+}
+
+::-webkit-calendar-picker-indicator {
+    display: none;
 }

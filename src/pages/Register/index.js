@@ -25,6 +25,12 @@ function Register() {
       const lastNameFormat = lastName.charAt(0).toUpperCase() + lastName.slice(1);
       console.log(lastNameFormat)
 
+      const countryFormat = country.charAt(0).toUpperCase() + country.slice(1);
+      console.log(countryFormat)
+
+      const cityFormat = city.charAt(0).toUpperCase() + city.slice(1);
+      console.log(cityFormat)
+
       if (password === confirmPass) {
 
         if (!/^(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])(?=.*\d)(?=.*[A-Z]).*$/.test(password)) {
@@ -35,60 +41,59 @@ function Register() {
       } else {
         alert("As senhas não coincidem.");
       }
+    } else {
+      alert("precisa preencher todos os campos")
     }
   }
 
   return (
-    <div>
-      <div className="container">
-        <h1 className="tituloRegister">Welcome,</h1>
-        <h2 className="subTituloRegister">Please, register to continue</h2>
+    <div className="container">
+      <h1 className="tituloRegister">Welcome,</h1>
+      <h2 className="subTituloRegister">Please, register to continue</h2>
 
-        <form onSubmit={handleSubmit} className="formRegister">
-          <div className="inputGroup">
-            <span>first name</span>
-            <input type="text" placeholder="Your first name" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
-          </div>
+      <form onSubmit={handleSubmit} className="formRegister">
+        <div className="inputGroup">
+          <span>first name</span>
+          <input type="text" placeholder="Your first name" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+        </div>
 
-          <div className="inputGroup">
-            <span>last name</span>
-            <input type="text" placeholder="Your last name" value={lastName} onChange={(e) => setLastName(e.target.value)} />
-          </div>
+        <div className="inputGroup">
+          <span>last name</span>
+          <input type="text" placeholder="Your last name" value={lastName} onChange={(e) => setLastName(e.target.value)} />
+        </div>
 
-          <div className="inputGroup">
-            <span>birth date</span>
-            <input type="text" placeholder="MM/DD/YYYY" value={birth} onChange={(e) => setBirth(e.target.value)} />
-          </div>
+        <div className="inputGroup">
+          <span>birth date</span>
+          <input type="date" placeholder="MM/DD/YYYY" value={birth} onChange={(e) => setBirth(e.target.value)} />
+        </div>
 
-          <div className="inputGroup">
-            <span>Country</span>
-            <input type="text" placeholder="Your Country" value={country} onChange={(e) => setCountry(e.target.value)} />
-          </div>
+        <div className="inputGroup">
+          <span>Country</span>
+          <input type="text" placeholder="Your Country" value={country} onChange={(e) => setCountry(e.target.value)} />
+        </div>
 
-          <div className="inputGroup">
-            <span>City</span>
-            <input type="text" placeholder="Your City" value={city} onChange={(e) => setCity(e.target.value)} />
-          </div>
+        <div className="inputGroup">
+          <span>City</span>
+          <input type="text" placeholder="Your City" value={city} onChange={(e) => setCity(e.target.value)} />
+        </div>
 
-          <div className="inputGroup">
-            <span>e-mail</span>
-            <input type="text" placeholder="A valid e-mail here" value={email} onChange={(e) => setEmail(e.target.value)} />
-          </div>
+        <div className="inputGroup">
+          <span>e-mail</span>
+          <input type="text" placeholder="A valid e-mail here" value={email} onChange={(e) => setEmail(e.target.value)} />
+        </div>
 
-          <div className="inputGroup">
-            <span>password</span>
-            <input type="text" placeholder="Your password" value={password} onChange={(e) => setPassword(e.target.value)} />
-          </div>
+        <div className="inputGroup">
+          <span>password</span>
+          <input type="text" placeholder="Your password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        </div>
 
-          <div className="inputGroup">
-            <span>password</span>
-            <input type="text" placeholder="Comfirm your password" value={confirmPass} onChange={(e) => setConfirmPass(e.target.value)} />
-          </div>
+        <div className="inputGroup">
+          <span>password</span>
+          <input type="text" placeholder="Comfirm your password" value={confirmPass} onChange={(e) => setConfirmPass(e.target.value)} />
+        </div>
 
-          <button className="botaoRegister" type="submit">Register Now</button>
-        </form>
-
-      </div>
+        <button className="botaoRegister" type="submit">Register Now</button>
+      </form>
 
       <img className="logo" src={Logo} alt="" />
 
