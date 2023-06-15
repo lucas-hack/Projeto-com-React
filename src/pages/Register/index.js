@@ -31,14 +31,18 @@ function Register() {
       const cityFormat = city.charAt(0).toUpperCase() + city.slice(1);
       console.log(cityFormat);
 
-      if (!isValidEmail(email)) {
-        alert("O e-mail digitado não é válido. Certifique-se de digitar um endereço de e-mail válido.");
-      }
-      console.log(email)
-
       if (password === confirmPass) {
         if (!/^(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])(?=.*\d)(?=.*[A-Z]).*$/.test(password)) {
           alert("A senha deve conter pelo menos um caractere especial, um número e uma letra maiúscula.");
+        } else {
+          const age = calculateAge(birth);
+          if (age < 18) {
+            alert("Você deve ter pelo menos 18 anos para se registrar.");
+          } else {
+            if (!isValidEmail(email)) {
+              alert("O e-mail digitado não é válido. Certifique-se de digitar um endereço de e-mail válido.");
+            }
+          }
         }
       } else {
         alert("As senhas não coincidem.");
@@ -48,9 +52,24 @@ function Register() {
     }
   }
 
+  function calculateAge(birthDate) {
+    const today = new Date();
+    const birthDateObj = new Date(birthDate);
+    let age = today.getFullYear() - birthDateObj.getFullYear();
+    const monthDiff = today.getMonth() - birthDateObj.getMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDateObj.getDate())) {
+      age--;
+    }
+    return age;
+  }
+
   function isValidEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
+  }
+
+  function handleBirthChange(e) {
+    setBirth(e.target.value); // Atualiza o valor do campo de nascimento
   }
 
   return (
