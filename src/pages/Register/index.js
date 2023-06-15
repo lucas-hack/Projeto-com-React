@@ -20,30 +20,37 @@ function Register() {
     if (firstName !== "" && lastName !== "" && birth !== "" && country !== "" && city !== "" && email !== "" && password !== "" && confirmPass !== "") {
 
       const firstNameFormat = firstName.charAt(0).toUpperCase() + firstName.slice(1);
-      console.log(firstNameFormat)
+      console.log(firstNameFormat);
 
       const lastNameFormat = lastName.charAt(0).toUpperCase() + lastName.slice(1);
-      console.log(lastNameFormat)
+      console.log(lastNameFormat);
 
       const countryFormat = country.charAt(0).toUpperCase() + country.slice(1);
-      console.log(countryFormat)
+      console.log(countryFormat);
 
       const cityFormat = city.charAt(0).toUpperCase() + city.slice(1);
-      console.log(cityFormat)
+      console.log(cityFormat);
+
+      if (!isValidEmail(email)) {
+        alert("O e-mail digitado não é válido. Certifique-se de digitar um endereço de e-mail válido.");
+      }
+      console.log(email)
 
       if (password === confirmPass) {
-
         if (!/^(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])(?=.*\d)(?=.*[A-Z]).*$/.test(password)) {
-
           alert("A senha deve conter pelo menos um caractere especial, um número e uma letra maiúscula.");
-
         }
       } else {
         alert("As senhas não coincidem.");
       }
     } else {
-      alert("precisa preencher todos os campos")
+      alert("Você precisa preencher todos os campos.");
     }
+  }
+
+  function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
   }
 
   return (
