@@ -43,8 +43,6 @@ function Home() {
         inputRef.current.addEventListener('blur', handleInputBlur);
 
         return () => {
-            inputRef.current.removeEventListener('focus', handleInputFocus);
-            inputRef.current.removeEventListener('blur', handleInputBlur);
         };
     }, []);
 
@@ -66,7 +64,7 @@ function Home() {
 
 
                     <div className="inputGroup">
-                        <input type="password" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)} ref={inputRef} />
+                        <input type="password" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                         <img src={IconP} style={{ position: 'absolute', top: 90, left: 393, marginLeft: imagePosition }} />
                     </div>
 

@@ -34,8 +34,8 @@ function AuthProvider({ children }) {
                 toast.success("Logado com sucesso!")
                 navigate("/dashboard")
             })
-            .catch((error) => {
-                console.log(error)
+            .catch(() => {
+                
                 toast.error("Parece que você não possui uma conta, crie uma para continuar")
                 navigate("/register")
             })
