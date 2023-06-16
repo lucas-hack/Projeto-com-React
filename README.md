@@ -5,3 +5,4 @@ Este projeto foi desenvolvido durante o programa de estágio da Compasso UOL, ut
 utilizando as bibliotecas, frameworks e api's:
 firebase
 react-router-dom
+react-toastify
