@@ -19,10 +19,18 @@ function Register() {
   const { newUser } = useContext(AuthContext)
 
   function handleSubmit(e) {
-    e.preventDefault()
+    e.preventDefault();
 
-    if (firstName !== "" && lastName !== "" && birth !== "" && country !== "" && city !== "" && email !== "" && password !== "" && confirmPass !== "") {
-
+    if (
+      firstName !== "" &&
+      lastName !== "" &&
+      birth !== "" &&
+      country !== "" &&
+      city !== "" &&
+      email !== "" &&
+      password !== "" &&
+      confirmPass !== ""
+    ) {
       const firstNameFormat = firstName.charAt(0).toUpperCase() + firstName.slice(1);
       console.log(firstNameFormat);
 
@@ -37,26 +45,30 @@ function Register() {
 
       const age = calculateAge(birth);
 
-      if (password === confirmPass) {
-        if (!/^(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])(?=.*\d)(?=.*[A-Z]).*$/.test(password)) {
-          alert("A senha deve conter pelo menos um caractere especial, um número e uma letra maiúscula.");
-        }
-      }
-
       if (age < 18) {
         alert("Você deve ter pelo menos 18 anos para se registrar.");
+        return;
       }
+
       if (!isValidEmail(email)) {
         alert("O e-mail digitado não é válido. Certifique-se de digitar um endereço de e-mail válido.");
+        return;
+      }
 
+      if (password === confirmPass) {
+        if (!/^(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])(?=.*\d)(?=.*[A-Z]).*$/.test(password && confirmPass)) {
+          alert("A senha deve conter pelo menos um caractere especial, um número e uma letra maiúscula.");
+          return;
+        }
       } else {
         alert("As senhas não coincidem.");
+        return;
       }
-      newUser(firstNameFormat, lastNameFormat, countryFormat, cityFormat, email, password)
+
+      newUser(firstNameFormat, lastNameFormat, countryFormat, cityFormat, email, password);
     } else {
       alert("Você precisa preencher todos os campos.");
     }
-
   }
 
   function calculateAge(birthDate) {
