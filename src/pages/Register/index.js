@@ -4,6 +4,7 @@ import Laptop from "../../images/computador_login.png"
 import Logo from "../../images/compass-logo.png"
 
 import { AuthContext } from "../../contexts/auth"
+import { toast } from "react-toastify";
 
 function Register() {
 
@@ -46,28 +47,28 @@ function Register() {
       const age = calculateAge(birth);
 
       if (age < 18) {
-        alert("Você deve ter pelo menos 18 anos para se registrar.");
+        toast.error("Você deve ter pelo menos 18 anos para se registrar.");
         return;
       }
 
       if (!isValidEmail(email)) {
-        alert("O e-mail digitado não é válido. Certifique-se de digitar um endereço de e-mail válido.");
+        toast.error("O e-mail digitado não é válido. Certifique-se de digitar um endereço de e-mail válido.");
         return;
       }
 
       if (password === confirmPass) {
         if (!/^(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])(?=.*\d)(?=.*[A-Z]).*$/.test(password && confirmPass)) {
-          alert("A senha deve conter pelo menos um caractere especial, um número e uma letra maiúscula.");
+          toast.error("A senha deve conter pelo menos um caractere especial, um número e uma letra maiúscula.");
           return;
         }
       } else {
-        alert("As senhas não coincidem.");
+        toast.error("As senhas não coincidem.");
         return;
       }
 
       newUser(firstNameFormat, lastNameFormat, countryFormat, cityFormat, email, password);
     } else {
-      alert("Você precisa preencher todos os campos.");
+      toast.error("Você precisa preencher todos os campos.");
     }
   }
 

@@ -1,8 +1,8 @@
 import { ùseState, createContext, useState } from "react"
 import { auth, db } from "../services/firebaseConnection"
-import { createUserWithEmailAndPassword } from "firebase/auth"
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
 import { doc, getDoc, setDoc } from "firebase/firestore"
-import {toast} from "react-toastify"
+import { toast } from "react-toastify"
 import { useNavigate } from "react-router-dom"
 
 export const AuthContext = createContext({})
@@ -13,10 +13,32 @@ function AuthProvider({ children }) {
     const navigate = useNavigate()
 
     // função para logar o usuário
-    function singIn(email, password) {
-        console.log(email)
-        console.log(password)
-        alert("função login provider")
+    async function singIn(email, password) {
+        await signInWithEmailAndPassword(auth, email, password)
+            .then(async (value) => {
+                let uid = value.user.uid
+
+                const docRef = doc(db, "users", uid)
+                const docSnap = await getDoc(docRef)
+
+                let data = {
+                    uid: uid,
+                    nome: docSnap.data().firstName,
+                    email: value.user.email,
+                    pais: docSnap.data().country,
+                    cidade: docSnap.data().city
+                }
+
+                setUser(data)
+                storageUser(data)
+                toast.success("Logado com sucesso!")
+                navigate("/dashboard")
+            })
+            .catch((error) => {
+                console.log(error)
+                toast.error("Parece que você não possui uma conta, crie uma para continuar")
+                navigate("/register")
+            })
     }
 
     // função para criar um novo usuário

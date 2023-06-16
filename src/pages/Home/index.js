@@ -13,12 +13,12 @@ function Home() {
 
     const { singIn } = useContext(AuthContext)
 
-    function handleSingIn(e) {
+    async function handleSingIn(e) {
         e.preventDefault()
 
         // quando o cadastro for feito buscar no banco de dados para ver se é igual ao que foi digitado pelo usuário
         if (email !== "" && password !== "") {
-            singIn(email, password)
+            await singIn(email, password)
         }
     }
 
