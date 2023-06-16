@@ -1,5 +1,5 @@
-import { useState, useContext } from "react"
-import "./home.css";
+import { useState, useContext, useRef, useEffect } from "react"
+import styles from "./home.css";
 import Laptop from "../../images/computador_login.png"
 import Logo from "../../images/compass-logo.png"
 import IconU from "../../images/icons/icon-user.svg"
@@ -11,7 +11,11 @@ function Home() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
+    const [imagePosition, setImagePosition] = useState('left');
+    const inputRef = useRef(null);
+
     const { singIn } = useContext(AuthContext)
+
 
     async function handleSingIn(e) {
         e.preventDefault()
@@ -21,6 +25,29 @@ function Home() {
             await singIn(email, password)
         }
     }
+
+
+
+    useEffect(() => {
+        const handleInputFocus = () => {
+            setImagePosition('-55px');
+        };
+
+        const handleInputBlur = () => {
+            if (!inputRef.current.value) {
+                setImagePosition('0');
+            }
+        };
+
+        inputRef.current.addEventListener('focus', handleInputFocus);
+        inputRef.current.addEventListener('blur', handleInputBlur);
+
+        return () => {
+            inputRef.current.removeEventListener('focus', handleInputFocus);
+            inputRef.current.removeEventListener('blur', handleInputBlur);
+        };
+    }, []);
+
 
     return (
         <div>
@@ -33,13 +60,14 @@ function Home() {
                 <form onSubmit={handleSingIn} className="form">
 
                     <div className="inputGroup">
-                        <input type="text" placeholder="user name" value={email} onChange={(e) => setEmail(e.target.value)} />
-                        <img src={IconU} alt="" />
+                        <input type="text" placeholder="user name" value={email} onChange={(e) => setEmail(e.target.value)} ref={inputRef} />
+                        <img src={IconU} style={{ position: 'absolute', top: 20, left: 393, marginLeft: imagePosition }} />
                     </div>
 
+
                     <div className="inputGroup">
-                        <input type="password" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-                        <img src={IconP} alt="" />
+                        <input type="password" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)} ref={inputRef} />
+                        <img src={IconP} style={{ position: 'absolute', top: 90, left: 393, marginLeft: imagePosition }} />
                     </div>
 
                     <button type="submit" className="botao">Register Now</button>
