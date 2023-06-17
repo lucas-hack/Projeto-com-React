@@ -58,7 +58,10 @@ function Home() {
                 <form onSubmit={handleSingIn} className="form">
 
                     <div className="inputGroup">
-                        <input type="text" placeholder="user name" value={email} onChange={(e) => setEmail(e.target.value)} ref={inputRef} />
+                        <input type="text"
+                            placeholder="user name"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)} ref={inputRef} />
                         <img src={IconU} style={{ position: 'absolute', top: 20, left: 393, marginLeft: imagePosition }} />
                     </div>
 

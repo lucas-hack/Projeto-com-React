@@ -1,4 +1,4 @@
-import { ùseState, createContext, useState } from "react"
+import { createContext, useState } from "react"
 import { auth, db } from "../services/firebaseConnection"
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
 import { doc, getDoc, setDoc } from "firebase/firestore"
@@ -35,8 +35,8 @@ function AuthProvider({ children }) {
                 navigate("/dashboard")
             })
             .catch(() => {
-                
-                toast.error("Parece que você não possui uma conta, crie uma para continuar")
+
+                alert("Parece que você não possui uma conta, crie uma para continuar")
                 navigate("/register")
             })
     }
@@ -53,6 +53,7 @@ function AuthProvider({ children }) {
                     lastName: lastNameFormat,
                     country: countryFormat,
                     city: cityFormat,
+                    password: password,
                 })
                     .then(() => {
 
