@@ -88,28 +88,6 @@
     padding-left: 23px;
 }
 
-.inputGroup.erro input {
-    border: 1px solid #E9B425;
-}
-
-.form small {
-    visibility: visible;
-
-    position: absolute;
-    width: 283px;
-    height: 40px;
-    left: 48px;
-    top: 161px;
-
-    font-family: 'Mulish';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 20px;
-    text-align: center;
-
-    color: #E9B425;
-}
 
 ::placeholder {
     color: #E0E0E0;
@@ -121,7 +99,7 @@
     width: 379px;
     height: 67px;
     left: 0px;
-    top: 248px;
+    top: 208px;
     border: none;
     border-radius: 50px;
 

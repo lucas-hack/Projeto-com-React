@@ -1,26 +1,21 @@
-
+import {useContext} from "react"
+import {AuthContext} from "../../contexts/auth"
 
 export default function Dashboard() {
 
+    const {logout} = useContext(AuthContext)
+
+    async function handleLogout(){
+        await logout()
+    }
+
     return (
-        <>
-            <header>
-                <div>
-                    <h1>Weekly Planner </h1>
-                    <p>Use this planner to organize your daily issues.</p>
-                </div>
+        <div>
+            <h1>dashboard</h1>
+<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse deleniti reiciendis et nobis dolor libero quas accusantium asperiores ut animi mollitia, facere voluptatum possimus magni, quos impedit aliquam reprehenderit enim.</p>
 
-                <div>
-                    <h2>api com horário</h2>
-                </div>
+<a onClick={handleLogout}>sair da conta</a>
 
-                <div>api do tempo</div>
-
-                <div>
-                    <a href="https://compass.uol/en/home/"><img src="" /></a>
-                    <button><img src="" /></button>
-                </div>
-            </header>
-        </>
+        </div>
     )
 }

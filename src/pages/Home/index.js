@@ -16,7 +16,6 @@ function Home() {
 
     const { singIn } = useContext(AuthContext)
 
-    const [mensagemErro, setMensagemErro] = useState()
 
     async function handleSingIn(e) {
         e.preventDefault()
@@ -67,13 +66,10 @@ function Home() {
                     </div>
 
 
-                    <div className="inputGroup erro">
+                    <div className="inputGroup">
                         <input type="password" placeholder="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                         <img src={IconP} style={{ position: 'absolute', top: 90, left: 393, marginLeft: imagePosition }} />
                     </div>
-
-                    <small>Wow, invalid username or password.
-                        Please, try again!</small>
 
                     <button type="submit" className="botao">Register Now</button>
                 </form>
