@@ -3,6 +3,7 @@ import { AuthContext } from "../../contexts/auth"
 import logoCompass from "../../images/logo_pequeno_compass.png"
 import "./dashboard.css"
 import LogoutIcon from "../../images/icons/icon_logout.svg"
+import LogoBG from "../../images/compass_bg.png"
 
 export default function Dashboard() {
 
@@ -32,7 +33,7 @@ export default function Dashboard() {
 
             </header>
 
-
+            <img src={LogoBG} className="bg"/>
         </div>
     )
 }
