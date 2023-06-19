@@ -190,3 +190,203 @@ button {
 .deleteTarefa:hover {
     transform: scale(1.2);
 }
+
+.containerDias {
+    position: absolute;
+    width: 1750px;
+    height: 33px;
+    left: 125px;
+    top: 232px;
+}
+
+.btnMonday {
+    width: 240px;
+    height: 33px;
+    background-color: #FF0024;
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    border-radius: 10px;
+    margin-right: 1px;
+}
+
+.btnTuesday {
+    width: 240px;
+    height: 33px;
+    background-color: #FF8000;
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    border-radius: 10px;
+    margin-right: 1px;
+}
+
+.btnWednesday {
+    width: 240px;
+    height: 33px;
+    background-color: #FFCE00;
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    border-radius: 10px;
+    margin-right: 1px;
+}
+
+.btnThursday {
+    width: 240px;
+    height: 33px;
+    background-color: rgba(255, 0, 36, 0.7);
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    border-radius: 10px;
+    margin-right: 1px;
+}
+
+.btnFriday {
+    width: 240px;
+    height: 33px;
+    background-color: rgba(255, 128, 0, 0.7);
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    border-radius: 10px;
+    margin-right: 1px;
+}
+
+.btnSaturday {
+    width: 240px;
+    height: 33px;
+    background-color: rgba(255, 206, 0, 0.7);
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    border-radius: 10px;
+    margin-right: 1px;
+}
+
+.btnSunday {
+    width: 240px;
+    height: 33px;
+    background-color: rgba(255, 0, 36, 0.5);
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    border-radius: 10px;
+    margin-right: 1px;
+}
+
+.Tempo {
+    display: flex;
+    flex-direction: column;
+
+    position: absolute;
+    width: 85px;
+    height: 733px;
+    left: 24px;
+    top: 271px;
+
+    border-radius: 10px;
+}
+
+.boxMenor {
+    width: 85px;
+    height: 75px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 24px rgba(168, 168, 168, 0.25);
+    border-radius: 10px;
+    font-family: 'Mulish';
+    font-weight: 800;
+    font-size: 17px;
+    text-align: center;
+    color: #3B3E45;
+    margin: 0;
+    padding: 0;
+}
+
+.boxTime {
+    width: 85px;
+    height: 85px;
+    background: green;
+    box-shadow: 0px 4px 24px rgba(168, 168, 168, 0.25);
+    border-radius: 10px;
+    font-family: 'Mulish';
+    font-weight: 800;
+    font-size: 17px;
+    text-align: center;
+    color: #3B3E45;
+    margin: 0;
+    padding: 0;
+
+    font-family: 'Mulish';
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 20px;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    color: #000000;
+}
+
+.tarefasCadastrada {
+    position: absolute;
+    left: 24px;
+    top: 360px;
+    display: flex;
+    flex-direction: row;
+}
+
+.corzinha{
+    z-index: 1000;
+    border-radius: 15px;
+    height: 85px; 
+    background-color: #00BA88;
+    width: 14px;
+}
+
+.tarefaTitulo {
+    border-radius: 15px;
+    width: 512px;
+    height: 85px;
+    margin-left: 17px;
+
+    box-shadow: 0px 4px 24px rgba(168, 168, 168, 0.25);
+}
+
+.tarefaTitulo p {
+    padding: 12px 0px 13px 28px;
+
+    font-family: 'Mulish';
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 20px;
+
+    color: #333333;
+}
+
+.tarefaTitulo button {
+    position: absolute;
+    right: 7px;
+    top: 6px;
+    width: 57px;
+    height: 25px;
+
+    background: #FF3D1F;
+    border-radius: 4px;
+
+    font-family: 'Mulish';
+    font-weight: 800;
+    font-size: 14px;
+    line-height: 20px;
+
+    color: #FFFFFF;
+}
