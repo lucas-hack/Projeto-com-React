@@ -12,7 +12,8 @@ import {
     deleteDoc,
     deleteTarefa,
     getDocs,
-    writeBatch
+    writeBatch,
+    sort
 } from "firebase/firestore";
 import logoCompass from "../../images/logo_pequeno_compass.png";
 import "./dashboard.css";
@@ -268,21 +269,23 @@ export default function Dashboard() {
             </div>
 
             <ul className="containerTarefas">
-                {tarefas && tarefas.map((item) => (
+                {tarefas && tarefas
+                    .sort((a, b) => a.tarefaHora.localeCompare(b.tarefaHora)) // Ordenar em ordem crescente
+                    .map((item) => (
 
-                    <li key={item.id}>
-                        <div className="tarefasCadastrada">
-                            <div className="boxTime">{item.tarefaHora}</div>
-                            <div>
-                                <div className="tarefaTitulo">
-                                    <button onClick={() => deleteTarefa(item.id)}>Delete</button>
-                                    <p>{item.tarefa}</p>
+                        <li key={item.id}>
+                            <div className="tarefasCadastrada">
+                                <div className="boxTime">{item.tarefaHora}</div>
+                                <div>
+                                    <div className="tarefaTitulo">
+                                        <button onClick={() => deleteTarefa(item.id)}>Delete</button>
+                                        <p>{item.tarefa}</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </li>
+                        </li>
 
-                ))}
+                    ))}
 
             </ul>
 
