@@ -356,7 +356,6 @@ button {
 }
 
 .tarefaTitulo {
-    border-left: 15px solid #00BA88;
     top: 0;
     left: 120px;
     display: table;
@@ -365,7 +364,8 @@ button {
     background: linear-gradient(112.83deg,
             rgba(228, 240, 248, 0.42) 0%,
             rgba(255, 255, 255, 0.336) 110.84%);
-    border: 1px solid var(--White);
+    border: 1px solid rgba(168, 168, 168, 0.25);
+    border-left: 15px solid green;
     box-shadow: 0px 2px 5.5px rgba(0, 0, 0, 0.02);
     backdrop-filter: blur(10.5px);
 

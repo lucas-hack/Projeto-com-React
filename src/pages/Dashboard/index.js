@@ -25,6 +25,40 @@ export default function Dashboard() {
     const [user, setUser] = useState({});
     const [tarefas, setTarefas] = useState([]);
 
+    const [hora, setHora] = useState("");
+    const [data, setData] = useState("")
+
+    useEffect(() => {
+        const relogio = setInterval(() => {
+            const meses = [
+                "January",
+                "February",
+                "March",
+                "April",
+                "May",
+                "June",
+                "July",
+                "August",
+                "September",
+                "October",
+                "November",
+                "December",
+            ];
+            const dataAtual = new Date();
+            const horas = dataAtual.getHours().toString().padStart(2, '0');
+            const minutos = dataAtual.getMinutes().toString().padStart(2, '0');
+            const dia = new Date().getDate()
+            const mes = meses[dataAtual.getMonth()]
+            const ano = new Date().getFullYear()
+            setHora(`${horas}:${minutos}`);
+            setData(`${mes} ${dia}th, ${ano}`);
+        }, 1000);
+
+        return () => {
+            clearInterval(relogio);
+        };
+    }, []);
+
     useEffect(() => {
         async function loadTarefas() {
             const userDetail = localStorage.getItem("#local");
@@ -125,7 +159,11 @@ export default function Dashboard() {
                     <p className="blockParag">Use this planner to organize your daily issues.</p>
                 </div>
 
-                <div>api do tempo</div>
+                <div>
+                    <div>{hora}</div>
+                    <div>{data}</div>
+                </div>
+
 
                 <div>api do clima</div>
 
