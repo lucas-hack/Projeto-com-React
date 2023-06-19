@@ -225,16 +225,24 @@ export default function Dashboard() {
                 <div className="boxMenor">Time</div>
             </div>
 
-            {tarefas && tarefas.map((item) => (
-                <article className="tarefasCadastrada" key={item.id}>
-                    <div className="boxTime">15h30m</div>
-                    <div className="tarefaTitulo">
-                        {/* <div className="corzinha"></div> */}
-                        <button onClick={() => deleteTarefa(item.id)}>Delete</button>
-                        <p>{item.tarefa}</p>
-                    </div>
-                </article>
-            ))}
+            <ul className="containerTarefas">
+                {tarefas && tarefas.map((item) => (
+
+                    <li key={item.id}>
+                        <div className="tarefasCadastrada">
+                            <div className="boxTime">15h30m</div>
+                            <div>
+                                <div className="tarefaTitulo">
+                                    <button onClick={() => deleteTarefa(item.id)}>Delete</button>
+                                    <p>{item.tarefa}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                ))}
+
+            </ul>
 
 
             <img src={LogoBG} className="bg" />
