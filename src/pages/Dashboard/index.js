@@ -1,8 +1,8 @@
 import { useContext, useState, useEffect } from "react"
 import { AuthContext } from "../../contexts/auth"
-import { auth } from "../../services/firebaseConnection" 
+import { auth } from "../../services/firebaseConnection"
 import { db } from "../../services/firebaseConnection"
-import { addDoc, collection } from "firebase/firestore"
+import { addDoc, collection, onSnapshot, query, orderBy, where, doc, deleteDoc } from "firebase/firestore"
 import logoCompass from "../../images/logo_pequeno_compass.png"
 import "./dashboard.css"
 import LogoutIcon from "../../images/icons/icon_logout.svg"
@@ -13,11 +13,33 @@ export default function Dashboard() {
     const { logout } = useContext(AuthContext)
     const [tarefaInput, setTarefaInput] = useState("")
     const [user, setUser] = useState({})
+    const [tarefas, setTarefas] = useState()
 
     useEffect(() => {
         async function loadTarefas() {
             const userDetail = localStorage.getItem("#local")
             setUser(JSON.parse(userDetail))
+
+            if (userDetail) {
+                const data = JSON.parse(userDetail)
+
+                const tarefaRef = collection(db, "tarefas")
+                const q = query(tarefaRef, orderBy("created", "desc"), where("userUid", "==", data?.uid))
+                const unsub = onSnapshot(q, (snapshot) => {
+                    let lista = []
+
+                    snapshot.forEach((doc) => {
+                        lista.push({
+                            id: doc.id,
+                            tarefa: doc.data().tarefa,
+                            userUid: doc.data().userUid
+                        })
+                    })
+
+                    setTarefas(lista)
+
+                })
+            }
         }
 
         loadTarefas()
@@ -25,6 +47,11 @@ export default function Dashboard() {
 
     async function handleLogout() {
         await logout()
+    }
+
+    async function deleteTarefa(id) {
+        const docRef = doc(db,"tarefas",id)
+        await deleteDoc(docRef)
     }
 
     async function handleSubmit(e) {
@@ -40,7 +67,7 @@ export default function Dashboard() {
             userUid: user?.uid
         })
             .then(() => {
-alert("a tarefa foi registrada")
+                alert("a tarefa foi registrada")
                 setTarefaInput("")
             })
             .catch((error) => {
@@ -158,15 +185,17 @@ alert("a tarefa foi registrada")
                 <div className="boxMenor">Time</div>
             </div>
 
-            <article className="tarefasCadastrada">
-                <div className="boxTime">15h30m</div>
-                <div className="tarefaTitulo">
-                    {/* <div className="corzinha"></div> */}
-                    <button>Delete</button>
-                    <p >aqui vai ser registrada a tarefa</p>
-                </div>
+            {tarefas && tarefas.map((item) => (
+                <article className="tarefasCadastrada" key={item.id}>
+                    <div className="boxTime">15h30m</div>
+                    <div className="tarefaTitulo">
+                        {/* <div className="corzinha"></div> */}
+                        <button onClick={() => deleteTarefa(item.id)}>Delete</button>
+                        <p>{item.tarefa}</p>
+                    </div>
+                </article>
+            ))}
 
-            </article>
 
             <img src={LogoBG} className="bg" />
         </div>
