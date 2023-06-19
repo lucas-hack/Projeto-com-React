@@ -4,6 +4,13 @@
     box-sizing: border-box;
 }
 
+button {
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+}
+
 .bodyFull {
     max-width: 1920px;
     max-height: 1080px;
@@ -17,6 +24,7 @@
     top: 447px;
     mix-blend-mode: normal;
     opacity: 0.5;
+
 }
 
 .cabecalho {
@@ -24,8 +32,10 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-
     height: 130px;
+
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 4px 4px 70px rgba(0, 0, 0, 0.1);
 }
 
 .cabecalho .blockPreto {
@@ -78,4 +88,105 @@
     height: 36px;
     left: 1842px;
     top: 65px;
+}
+
+.tarefaNome {
+    height: 45px;
+    width: 391px;
+    margin-left: 24px;
+    margin-top: 34px;
+    border-radius: 10px;
+    border: 1px solid #FECE00
+}
+
+.tarefaNome::placeholder {
+    font-family: 'Mulish';
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: rgba(0, 0, 0, 0.7);
+    padding-left: 15px;
+}
+
+.tarefaDia {
+    height: 45px;
+    width: 240px;
+    border-radius: 10px;
+    border: 1px solid #FECE00
+}
+
+.tarefaDia::placeholder {
+    font-family: 'Mulish';
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: rgba(0, 0, 0, 0.7);
+    padding-left: 8px;
+}
+
+.tarefaHora {
+    height: 45px;
+    width: 120px;
+    border-radius: 10px;
+    border: 1px solid #FECE00
+}
+
+.addTarefa {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 12px;
+    gap: 4px;
+
+    position: absolute;
+    width: 200px;
+    height: 44px;
+    left: 1473px;
+    top: 169px;
+
+    background: #00BA88;
+    border-radius: 10px;
+
+    font-family: 'Mulish';
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 20px;
+    color: #FFFFFF;
+
+    transition: 0.5s;
+}
+
+.addTarefa:hover {
+    transform: scale(1.2);
+}
+
+.deleteTarefa {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 12px;
+    gap: 4px;
+
+    position: absolute;
+    width: 200px;
+    height: 44px;
+    left: 1697px;
+    top: 169px;
+
+    background: #FF3D1F;
+    border-radius: 10px;
+
+    font-family: 'Mulish';
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 20px;
+    color: #FFFFFF;
+
+    transition: 0.5s;
+}
+
+.deleteTarefa:hover {
+    transform: scale(1.2);
 }

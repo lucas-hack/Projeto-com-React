@@ -33,6 +33,15 @@ export default function Dashboard() {
 
             </header>
 
+            
+                <input className="tarefaNome" type="text" placeholder="Task or issue"/>
+                <input className="tarefaDia" type="select" placeholder="Monday"/>
+                <input className="tarefaHora" type="select" />
+
+                <button className="addTarefa">+ Add to calendar</button>
+                <button className="deleteTarefa">- Delete All</button>
+            
+
             <img src={LogoBG} className="bg"/>
         </div>
     )
