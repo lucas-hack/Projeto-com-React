@@ -1,5 +1,8 @@
-import { useContext, useState } from "react"
+import { useContext, useState, useEffect } from "react"
 import { AuthContext } from "../../contexts/auth"
+import { auth } from "../../services/firebaseConnection" 
+import { db } from "../../services/firebaseConnection"
+import { addDoc, collection } from "firebase/firestore"
 import logoCompass from "../../images/logo_pequeno_compass.png"
 import "./dashboard.css"
 import LogoutIcon from "../../images/icons/icon_logout.svg"
@@ -9,15 +12,41 @@ export default function Dashboard() {
 
     const { logout } = useContext(AuthContext)
     const [tarefaInput, setTarefaInput] = useState("")
+    const [user, setUser] = useState({})
+
+    useEffect(() => {
+        async function loadTarefas() {
+            const userDetail = localStorage.getItem("#local")
+            setUser(JSON.parse(userDetail))
+        }
+
+        loadTarefas()
+    }, [])
 
     async function handleLogout() {
         await logout()
     }
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault()
 
-        alert("clicou")
+        if (tarefaInput === "") {
+            return
+        }
+
+        await addDoc(collection(db, "tarefas"), {
+            tarefa: tarefaInput,
+            created: new Date(),
+            userUid: user?.uid
+        })
+            .then(() => {
+alert("a tarefa foi registrada")
+                setTarefaInput("")
+            })
+            .catch((error) => {
+                console.log("algo deu errado");
+            })
+
     }
 
     return (
