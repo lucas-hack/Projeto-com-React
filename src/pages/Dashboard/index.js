@@ -1,79 +1,119 @@
-import { useContext, useState, useEffect } from "react"
-import { AuthContext } from "../../contexts/auth"
-import { auth } from "../../services/firebaseConnection"
-import { db } from "../../services/firebaseConnection"
-import { addDoc, collection, onSnapshot, query, orderBy, where, doc, deleteDoc } from "firebase/firestore"
-import logoCompass from "../../images/logo_pequeno_compass.png"
-import "./dashboard.css"
-import LogoutIcon from "../../images/icons/icon_logout.svg"
-import LogoBG from "../../images/compass_bg.png"
+import { useContext, useState, useEffect } from "react";
+import { AuthContext } from "../../contexts/auth";
+import { auth, db } from "../../services/firebaseConnection";
+import {
+    addDoc,
+    collection,
+    onSnapshot,
+    query,
+    orderBy,
+    where,
+    doc,
+    deleteDoc,
+    deleteTarefa,
+    getDocs,
+    writeBatch
+} from "firebase/firestore";
+import logoCompass from "../../images/logo_pequeno_compass.png";
+import "./dashboard.css";
+import LogoutIcon from "../../images/icons/icon_logout.svg";
+import LogoBG from "../../images/compass_bg.png";
 
 export default function Dashboard() {
-
-    const { logout } = useContext(AuthContext)
-    const [tarefaInput, setTarefaInput] = useState("")
-    const [user, setUser] = useState({})
-    const [tarefas, setTarefas] = useState()
+    const { logout } = useContext(AuthContext);
+    const [tarefaInput, setTarefaInput] = useState("");
+    const [user, setUser] = useState({});
+    const [tarefas, setTarefas] = useState([]);
 
     useEffect(() => {
         async function loadTarefas() {
-            const userDetail = localStorage.getItem("#local")
-            setUser(JSON.parse(userDetail))
+            const userDetail = localStorage.getItem("#local");
+            setUser(JSON.parse(userDetail));
 
             if (userDetail) {
-                const data = JSON.parse(userDetail)
+                const data = JSON.parse(userDetail);
 
-                const tarefaRef = collection(db, "tarefas")
-                const q = query(tarefaRef, orderBy("created", "desc"), where("userUid", "==", data?.uid))
-                const unsub = onSnapshot(q, (snapshot) => {
-                    let lista = []
+                const tarefaRef = collection(db, "tarefas");
+                const q = query(
+                    tarefaRef,
+                    orderBy("created", "desc"),
+                    where("userUid", "==", data?.uid)
+                );
+                const unsubscribe = onSnapshot(q, (snapshot) => {
+                    let lista = [];
 
                     snapshot.forEach((doc) => {
                         lista.push({
                             id: doc.id,
                             tarefa: doc.data().tarefa,
-                            userUid: doc.data().userUid
-                        })
-                    })
+                            userUid: doc.data().userUid,
+                        });
+                    });
 
-                    setTarefas(lista)
-
-                })
+                    setTarefas(lista);
+                });
             }
         }
 
-        loadTarefas()
-    }, [])
+        loadTarefas();
+    }, []);
 
     async function handleLogout() {
-        await logout()
+        await logout();
     }
 
     async function deleteTarefa(id) {
-        const docRef = doc(db,"tarefas",id)
-        await deleteDoc(docRef)
+        const docRef = doc(db, "tarefas", id);
+        await deleteDoc(docRef);
+    }
+
+    async function DeleteAll() {
+        console.log("clicado");
+
+        const userUid = user?.uid;
+
+        try {
+            const collectionRef = collection(db, "tarefas");
+            const querySnapshot = await getDocs(
+                query(collectionRef, where("userUid", "==", userUid))
+            );
+
+            const batch = writeBatch(db);
+
+            querySnapshot.forEach((doc) => {
+                batch.delete(doc.ref);
+            });
+
+            await batch.commit();
+            console.log(
+                "Todas as tarefas com o userUid",
+                userUid,
+                "foram excluídas com sucesso."
+            );
+        } catch (error) {
+            console.error("Erro ao excluir as tarefas:", error);
+        }
     }
 
     async function handleSubmit(e) {
-        e.preventDefault()
+        e.preventDefault();
 
         if (tarefaInput === "") {
-            return
+            return;
         }
 
         await addDoc(collection(db, "tarefas"), {
             tarefa: tarefaInput,
             created: new Date(),
-            userUid: user?.uid
+            userUid: user?.uid,
         })
             .then(() => {
-                alert("a tarefa foi registrada")
-                setTarefaInput("")
+                alert("a tarefa foi registrada");
+                setTarefaInput("");
             })
             .catch((error) => {
                 console.log("algo deu errado");
-            })
-
+            });
     }
 
     return (
@@ -177,7 +217,7 @@ export default function Dashboard() {
                 </div>
 
                 <button className="addTarefa" type="submit">+ Add to calendar</button>
-                <button className="deleteTarefa">- Delete All</button>
+                <button className="deleteTarefa" onClick={DeleteAll}>- Delete All</button>
 
             </form>
 
