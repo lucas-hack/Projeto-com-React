@@ -69,6 +69,27 @@ button {
     color: white;
 }
 
+.relogioContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.relogioHora {
+    font-family: 'Mulish';
+    font-weight: 700;
+    font-size: 40px;
+    color: #3B3E45;
+}
+
+.relogioData {
+    font-family: 'Mulish';
+    font-weight: 400;
+    font-size: 20px;
+    color: #3B3E45;
+}
+
 .blockLinks {
     display: flex;
     flex-direction: column;

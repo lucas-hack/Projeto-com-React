@@ -24,6 +24,7 @@ export default function Dashboard() {
     const [tarefaInput, setTarefaInput] = useState("");
     const [user, setUser] = useState({});
     const [tarefas, setTarefas] = useState([]);
+    const [tarefaHora, setTarefaHora] = useState("");
 
     const [hora, setHora] = useState("");
     const [data, setData] = useState("")
@@ -77,11 +78,13 @@ export default function Dashboard() {
                     let lista = [];
 
                     snapshot.forEach((doc) => {
-                        lista.push({
+                        const tarefa = {
                             id: doc.id,
                             tarefa: doc.data().tarefa,
                             userUid: doc.data().userUid,
-                        });
+                            tarefaHora: doc.data().tarefaHora, // Adicione a propriedade tarefaHora ao objeto tarefa
+                        };
+                        lista.push(tarefa);
                     });
 
                     setTarefas(lista);
@@ -140,15 +143,16 @@ export default function Dashboard() {
             tarefa: tarefaInput,
             created: new Date(),
             userUid: user?.uid,
+            tarefaHora: tarefaHora, // Adiciona a propriedade tarefaHora ao objeto
         })
             .then(() => {
-                alert("a tarefa foi registrada");
                 setTarefaInput("");
             })
             .catch((error) => {
                 console.log("algo deu errado");
             });
     }
+
 
     return (
         <div className="bodyFull">
@@ -159,9 +163,9 @@ export default function Dashboard() {
                     <p className="blockParag">Use this planner to organize your daily issues.</p>
                 </div>
 
-                <div>
-                    <div>{hora}</div>
-                    <div>{data}</div>
+                <div className="relogioContainer">
+                    <div className="relogioHora">{hora}</div>
+                    <div className="relogioData">{data}</div>
                 </div>
 
 
@@ -193,7 +197,7 @@ export default function Dashboard() {
                     <option value="Sunday">Sunday</option>
                 </select>
 
-                <select className="tarefaHora">
+                <select className="tarefaHora" value={tarefaHora} onChange={(e) => setTarefaHora(e.target.value)}>
                     <option value="00:00">00:00</option>
                     <option value="00:30">00:30</option>
                     <option value="01:00">01:00</option>
@@ -268,7 +272,7 @@ export default function Dashboard() {
 
                     <li key={item.id}>
                         <div className="tarefasCadastrada">
-                            <div className="boxTime">15h30m</div>
+                            <div className="boxTime">{item.tarefaHora}</div>
                             <div>
                                 <div className="tarefaTitulo">
                                     <button onClick={() => deleteTarefa(item.id)}>Delete</button>
