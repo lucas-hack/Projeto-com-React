@@ -11,6 +11,11 @@ button {
     margin: 0;
 }
 
+select,
+input {
+    padding: 10px;
+}
+
 .bodyFull {
     max-width: 1920px;
     max-height: 1080px;
@@ -335,7 +340,6 @@ button {
 .boxTime {
     width: 85px;
     height: 85px;
-    background: green;
     box-shadow: 0px 4px 24px rgba(168, 168, 168, 0.25);
     border-radius: 10px;
     font-family: 'Mulish';
@@ -356,6 +360,14 @@ button {
     text-align: center;
 
     color: #000000;
+}
+
+.Monday {
+    background: #FF0024;
+}
+
+.Monday {
+    border-left: 15px solid #FF0024;
 }
 
 .containerTarefas {
@@ -386,7 +398,6 @@ button {
             rgba(228, 240, 248, 0.42) 0%,
             rgba(255, 255, 255, 0.336) 110.84%);
     border: 1px solid rgba(168, 168, 168, 0.25);
-    border-left: 15px solid green;
     box-shadow: 0px 2px 5.5px rgba(0, 0, 0, 0.02);
     backdrop-filter: blur(10.5px);
 

@@ -311,11 +311,11 @@ export default function Dashboard() {
             <ul className="containerTarefas">
                 {tarefasFiltradas.map((tarefa) => (
 
-                    <li key={tarefa.id} >
+                    <li key={tarefa.id}>
                         <div className="tarefasCadastrada">
-                            <div className="boxTime">{tarefa.tarefaHora}</div>
+                            <div className={`${[tarefa.tarefaDia]} boxTime`}>{tarefa.tarefaHora}</div>
                             <div>
-                                <div className="tarefaTitulo">
+                                <div className={`${[tarefa.tarefaDia]} tarefaTitulo`}>
                                     <button onClick={() => deleteTarefa(tarefa.id, tarefa.tarefaDia)}>Delete</button>
                                     <p>{tarefa.tarefa}</p>
                                 </div>
