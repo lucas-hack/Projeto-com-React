@@ -158,16 +158,15 @@ export default function Dashboard() {
     async function handleSubmit(e) {
         e.preventDefault();
 
-        if (tarefaInput === "" || diaSelecionado === "") {
+        if (tarefaInput === "" || tarefaDia === "") {
             return;
         }
 
         const novaTarefa = {
             tarefa: tarefaInput,
-            created: new Date(),
             userUid: user?.uid,
             tarefaHora: tarefaHora,
-            tarefaDia: diaSelecionado,
+            tarefaDia: tarefaDia,
         };
 
         await addDoc(collection(db, "tarefas"), novaTarefa)
@@ -312,7 +311,7 @@ export default function Dashboard() {
             <ul className="containerTarefas">
                 {tarefasFiltradas.map((tarefa) => (
 
-                    <li key={tarefa.id}>
+                    <li key={tarefa.id} >
                         <div className="tarefasCadastrada">
                             <div className="boxTime">{tarefa.tarefaHora}</div>
                             <div>
