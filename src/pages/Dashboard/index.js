@@ -10,7 +10,6 @@ import {
     where,
     doc,
     deleteDoc,
-    deleteTarefa,
     getDocs,
     writeBatch,
     sort
@@ -33,6 +32,8 @@ export default function Dashboard() {
     const [hora, setHora] = useState("");
     const [data, setData] = useState("");
     const [tarefasFiltradas, setTarefasFiltradas] = useState([]);
+
+    const [diaSelecionado, setDiaSelecionado] = useState("");
 
     useEffect(() => {
         const relogio = setInterval(() => {
@@ -109,18 +110,16 @@ export default function Dashboard() {
     }, []);
 
     useEffect(() => {
-        const filteredTarefas = tarefas.filter((tarefa) => tarefa.tarefaDia === filtroDia);
+        const filteredTarefas = tarefas.filter((tarefa) => tarefa.tarefaDia === diaSelecionado);
         setTarefasFiltradas(filteredTarefas);
-    }, [filtroDia, tarefas]);
+    }, [diaSelecionado, tarefas]);
+
 
     async function handleLogout() {
         await logout();
     }
 
-    async function deleteTarefa(id, tarefaDia) {
-        if (tarefaDia !== filtroDia) {
-            return;
-        }
+    async function deleteTarefa(id) {
 
         const docRef = doc(db, "tarefas", id);
         await deleteDoc(docRef);
@@ -159,7 +158,7 @@ export default function Dashboard() {
     async function handleSubmit(e) {
         e.preventDefault();
 
-        if (tarefaInput === "") {
+        if (tarefaInput === "" || diaSelecionado === "") {
             return;
         }
 
@@ -168,7 +167,7 @@ export default function Dashboard() {
             created: new Date(),
             userUid: user?.uid,
             tarefaHora: tarefaHora,
-            tarefaDia: filtroDia,
+            tarefaDia: diaSelecionado,
         };
 
         await addDoc(collection(db, "tarefas"), novaTarefa)
@@ -180,6 +179,7 @@ export default function Dashboard() {
                 console.log("Algo deu errado");
             });
     }
+
 
     return (
         <div className="bodyFull">
@@ -277,25 +277,25 @@ export default function Dashboard() {
                 </select>
 
                 <div className="containerDias">
-                    <button className="btnMonday" onClick={() => setFiltroDia("Monday")}>
+                    <button className="btnMonday" onClick={() => setDiaSelecionado("Monday")}>
                         Monday
                     </button>
-                    <button className="btnTuesday" onClick={() => setFiltroDia("Tuesday")}>
+                    <button className="btnTuesday" onClick={() => setDiaSelecionado("Tuesday")}>
                         Tuesday
                     </button>
-                    <button className="btnWednesday" onClick={() => setFiltroDia("Wednesday")}>
+                    <button className="btnWednesday" onClick={() => setDiaSelecionado("Wednesday")}>
                         Wednesday
                     </button>
-                    <button className="btnThursday" onClick={() => setFiltroDia("Thursday")}>
+                    <button className="btnThursday" onClick={() => setDiaSelecionado("Thursday")}>
                         Thursday
                     </button>
-                    <button className="btnFriday" onClick={() => setFiltroDia("Friday")}>
+                    <button className="btnFriday" onClick={() => setDiaSelecionado("Friday")}>
                         Friday
                     </button>
-                    <button className="btnSaturday" onClick={() => setFiltroDia("Saturday")}>
+                    <button className="btnSaturday" onClick={() => setDiaSelecionado("Saturday")}>
                         Saturday
                     </button>
-                    <button className="btnSunday" onClick={() => setFiltroDia("Sunday")}>
+                    <button className="btnSunday" onClick={() => setDiaSelecionado("Sunday")}>
                         Sunday
                     </button>
                 </div>
