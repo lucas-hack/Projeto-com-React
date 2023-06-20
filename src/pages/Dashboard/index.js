@@ -24,11 +24,15 @@ export default function Dashboard() {
     const { logout } = useContext(AuthContext);
     const [tarefaInput, setTarefaInput] = useState("");
     const [user, setUser] = useState({});
+
     const [tarefas, setTarefas] = useState([]);
     const [tarefaHora, setTarefaHora] = useState("");
+    const [tarefaDia, setTarefaDia] = useState("");
+    const [filtroDia, setFiltroDia] = useState("");
 
     const [hora, setHora] = useState("");
-    const [data, setData] = useState("")
+    const [data, setData] = useState("");
+    const [tarefasFiltradas, setTarefasFiltradas] = useState([]);
 
     useEffect(() => {
         const relogio = setInterval(() => {
@@ -59,6 +63,14 @@ export default function Dashboard() {
         return () => {
             clearInterval(relogio);
         };
+    }, []);
+
+    useEffect(() => {
+        const unsubscribe = onSnapshot(collection(db, "tarefas"), (snapshot) => {
+            setTarefas(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+        });
+
+        return () => unsubscribe();
     }, []);
 
     useEffect(() => {
@@ -96,17 +108,27 @@ export default function Dashboard() {
         loadTarefas();
     }, []);
 
+    useEffect(() => {
+        const filteredTarefas = tarefas.filter((tarefa) => tarefa.tarefaDia === filtroDia);
+        setTarefasFiltradas(filteredTarefas);
+    }, [filtroDia, tarefas]);
+
     async function handleLogout() {
         await logout();
     }
 
-    async function deleteTarefa(id) {
+    async function deleteTarefa(id, tarefaDia) {
+        if (tarefaDia !== filtroDia) {
+            return;
+        }
+
         const docRef = doc(db, "tarefas", id);
         await deleteDoc(docRef);
+
+        setTarefasFiltradas(tarefasFiltradas.filter((tarefa) => tarefa.id !== id));
     }
 
     async function DeleteAll() {
-        console.log("clicado");
 
         const userUid = user?.uid;
 
@@ -128,6 +150,7 @@ export default function Dashboard() {
                 userUid,
                 "foram excluídas com sucesso."
             );
+
         } catch (error) {
             console.error("Erro ao excluir as tarefas:", error);
         }
@@ -140,20 +163,23 @@ export default function Dashboard() {
             return;
         }
 
-        await addDoc(collection(db, "tarefas"), {
+        const novaTarefa = {
             tarefa: tarefaInput,
             created: new Date(),
             userUid: user?.uid,
-            tarefaHora: tarefaHora, // Adiciona a propriedade tarefaHora ao objeto
-        })
+            tarefaHora: tarefaHora,
+            tarefaDia: filtroDia,
+        };
+
+        await addDoc(collection(db, "tarefas"), novaTarefa)
             .then(() => {
                 setTarefaInput("");
+                setTarefasFiltradas([...tarefasFiltradas, novaTarefa]);
             })
             .catch((error) => {
-                console.log("algo deu errado");
+                console.log("Algo deu errado");
             });
     }
-
 
     return (
         <div className="bodyFull">
@@ -188,7 +214,8 @@ export default function Dashboard() {
                     value={tarefaInput}
                     onChange={(e) => setTarefaInput(e.target.value)}
                 />
-                <select className="tarefaDia">
+                <select className="tarefaDia" value={tarefaDia}
+                    onChange={(e) => setTarefaDia(e.target.value)}>
                     <option value="Monday">Monday</option>
                     <option value="Tuesday">Tuesday</option>
                     <option value="Wednesday">Wednesday</option>
@@ -250,13 +277,27 @@ export default function Dashboard() {
                 </select>
 
                 <div className="containerDias">
-                    <button className="btnMonday">Monday</button>
-                    <button className="btnTuesday">Tuesday</button>
-                    <button className="btnWednesday">Wednesday</button>
-                    <button className="btnThursday">Thursday</button>
-                    <button className="btnFriday">Friday</button>
-                    <button className="btnSaturday">Saturday</button>
-                    <button className="btnSunday">Sunday</button>
+                    <button className="btnMonday" onClick={() => setFiltroDia("Monday")}>
+                        Monday
+                    </button>
+                    <button className="btnTuesday" onClick={() => setFiltroDia("Tuesday")}>
+                        Tuesday
+                    </button>
+                    <button className="btnWednesday" onClick={() => setFiltroDia("Wednesday")}>
+                        Wednesday
+                    </button>
+                    <button className="btnThursday" onClick={() => setFiltroDia("Thursday")}>
+                        Thursday
+                    </button>
+                    <button className="btnFriday" onClick={() => setFiltroDia("Friday")}>
+                        Friday
+                    </button>
+                    <button className="btnSaturday" onClick={() => setFiltroDia("Saturday")}>
+                        Saturday
+                    </button>
+                    <button className="btnSunday" onClick={() => setFiltroDia("Sunday")}>
+                        Sunday
+                    </button>
                 </div>
 
                 <button className="addTarefa" type="submit">+ Add to calendar</button>
@@ -269,23 +310,21 @@ export default function Dashboard() {
             </div>
 
             <ul className="containerTarefas">
-                {tarefas && tarefas
-                    .sort((a, b) => a.tarefaHora.localeCompare(b.tarefaHora)) // Ordenar em ordem crescente
-                    .map((item) => (
+                {tarefasFiltradas.map((tarefa) => (
 
-                        <li key={item.id}>
-                            <div className="tarefasCadastrada">
-                                <div className="boxTime">{item.tarefaHora}</div>
-                                <div>
-                                    <div className="tarefaTitulo">
-                                        <button onClick={() => deleteTarefa(item.id)}>Delete</button>
-                                        <p>{item.tarefa}</p>
-                                    </div>
+                    <li key={tarefa.id}>
+                        <div className="tarefasCadastrada">
+                            <div className="boxTime">{tarefa.tarefaHora}</div>
+                            <div>
+                                <div className="tarefaTitulo">
+                                    <button onClick={() => deleteTarefa(tarefa.id, tarefa.tarefaDia)}>Delete</button>
+                                    <p>{tarefa.tarefa}</p>
                                 </div>
                             </div>
-                        </li>
+                        </div>
+                    </li>
 
-                    ))}
+                ))}
 
             </ul>
 
